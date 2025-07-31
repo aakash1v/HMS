@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['hms-production-76c7.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
