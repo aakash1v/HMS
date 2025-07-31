@@ -1,0 +1,34 @@
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: hostel_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: hostel_db
+      POSTGRES_USER: aakash
+      POSTGRES_PASSWORD: okay
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  web:
+    build: ./django-server
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./django-server:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres    
+    environment:
+      POSTGRES_DB: hostel_db
+      POSTGRES_USER: aakash
+      POSTGRES_PASSWORD: okay
+      POSTGRES_HOST: postgres
+
+volumes:
+  postgres_data:
