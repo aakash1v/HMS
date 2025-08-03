@@ -9,12 +9,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config(
+    'django-insecure-mytlo!-o7l!(vh86*1yk0wb%=%vsbn9!)#v5g(4#$c)fbr*3o@')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://hms-production-76c7.up.railway.app/']
 
 
 # Application definition
