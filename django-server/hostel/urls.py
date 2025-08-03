@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import root
+from .views import HostelListAPIView
 
 urlpatterns = [
-    path('', root)
+    path('hostels/', HostelListAPIView.as_view(), name="hostel-list")
 ]

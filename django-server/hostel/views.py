@@ -1,8 +1,9 @@
 # from django.shortcuts import render
-from django.http import JsonResponse
+from rest_framework import generics
+from hostel.models import Hostel
+from hostel.serializers import HostelSerializer
 
-# Create your views here.
 
-
-def root(req):
-    return JsonResponse({"welcome": "Hello welcome"})
+class HostelListAPIView(generics.ListAPIView):
+    queryset = Hostel.objects.all()
+    serializer_class = HostelSerializer

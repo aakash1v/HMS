@@ -5,13 +5,13 @@ services:
     container_name: hostel_postgres
     restart: always
     environment:
-      POSTGRES_DB: hostel_db
+      POSTGRES_DB: hmsdb
       POSTGRES_USER: aakash
       POSTGRES_PASSWORD: okay
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - "5432:5432"
 
   web:
     build: ./django-server
@@ -25,7 +25,7 @@ services:
     depends_on:
       - postgres    
     environment:
-      POSTGRES_DB: hostel_db
+      POSTGRES_DB: hmsdb
       POSTGRES_USER: aakash
       POSTGRES_PASSWORD: okay
       POSTGRES_HOST: postgres
