@@ -17,18 +17,16 @@ services:
     build: ./django-server
     command: >
       sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+         python manage.py shell < create_superuser.py &&
+         python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./django-server:/app
     ports:
       - "8000:8000"
     depends_on:
-      - postgres    
-    environment:
-      POSTGRES_DB: hmsdb
-      POSTGRES_USER: aakash
-      POSTGRES_PASSWORD: okay
-      POSTGRES_HOST: postgres
+      - postgres
+    env_file:
+      - ./django-server/.env
 
 volumes:
   postgres_data:
