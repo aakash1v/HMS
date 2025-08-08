@@ -1,38 +1,40 @@
+from django.http import HttpResponse
+from rest_framework import viewsets
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Student, Warden
-from .serializers import StudentSerializer, WardenSerializer
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.views import Response
+from .models import CustomUser, Student, Warden, Attendance
+from .serializers import StudentSerializer, UserSerializer, WardenSerializer, AttendanceSerializer, AttendanceCreateSerializer
+
+
+class StudentViewSet(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+    permission_classes = [AllowAny]
+
+
+class WardenViewSet(viewsets.ModelViewSet):
+    queryset = Warden.objects.all()
+    serializer_class = WardenSerializer
+    permission_classes = [AllowAny]
 
 
 @api_view(['GET'])
-def get_all_students(request):
-    """
-    List all registered students.
-    """
-    students = Student.objects.all()
-    serializer = StudentSerializer(students, many=True)
+def all_user(request):
+    users = CustomUser.objects.all()
+    serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def register_student(request):
-    """
-    Register a new student.
-    """
-    serializer = StudentSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class AttendanceViewSet(viewsets.ModelViewSet):
+    queryset = Attendance.objects.all()
+    permission_classes = [AllowAny]
+
+    def get_serializer_class(self):
+        if self.action in ["create", "update", "partial_update"]:
+            return AttendanceCreateSerializer
+        return AttendanceSerializer
 
 
-@api_view(['GET'])
-def get_all_wardens(request):
-    """
-    List all wardens.
-    """
-    wardens = Warden.objects.all()
-    serializer = WardenSerializer(wardens, many=True)
-    return Response(serializer.data)
-
+def welcome_view(request):
+    return HttpResponse("Welcome to django Server .. ")
