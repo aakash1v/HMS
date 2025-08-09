@@ -1,5 +1,5 @@
 import axios from "./axios/nodeApi.js";
-import axios2 from "./axios/djangoApi.js"
+import axios2 from "./axios/djangoApi.js";
 
 export async function fetchStudents(studentId) {
   const res = await axios.get(`/students/${studentId}`);
@@ -7,7 +7,9 @@ export async function fetchStudents(studentId) {
 }
 
 export async function registerStudent(student) {
-  const res = await axios.post(`/students`, student);
+  const res = await axios.post(`/students`, student, {
+    headers: { "Content-Type": "application/json" },
+  });
   return res.data;
 }
 
@@ -15,19 +17,24 @@ export async function registerStudentDjango(student) {
   const studentData = {
     prn: student.prn,
     branch: student.branch,
-    dob: student.dob.split("T")[0],  // Just the date part
+    dob: student.dob,
     year: student.year,
-    mobile: student.phone,
+    mobile: student.mobile,
     user: {
-      username: student.email,
       email: student.email,
       first_name: student.first_name,
       last_name: student.last_name,
-      is_student: true
-    }
+      username: student.username,
+      password: student.password,
+    },
+    mongoID: student.mongoID
   };
 
-  const res = await axios2.post(`/students/register/`, studentData);
+  const res = await axios2.post(`/students/`, studentData);
   return res.data;
 }
 
+export async function deleteStudent(id){
+  const res = await axios.delete(`/students/${id}`)
+  return res
+}

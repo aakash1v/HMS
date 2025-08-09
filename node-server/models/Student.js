@@ -31,7 +31,7 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  phone: {
+  mobile: {
     type: String,
     required: false,
   },

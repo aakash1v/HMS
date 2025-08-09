@@ -46,6 +46,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://restfox.dev",    # 🧠 ADD THIS
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 # Application definition
 
 INSTALLED_APPS = [

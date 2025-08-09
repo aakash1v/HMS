@@ -1,9 +1,9 @@
-import ShowRooms from "@/layout/components/ShowRooms"
+// src/features/hostel/Hostel.jsx
+import HostelList from "./HostelList";
 
 function Hostel() {
-  return (
-  <ShowRooms/>
-  )
+  return <HostelList />;
 }
 
-export default Hostel
+export default Hostel;
+

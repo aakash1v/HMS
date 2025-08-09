@@ -40,8 +40,8 @@ function generateFlat(flat_no) {
       flat_no,
       rooms: [
         generateRoom("R1", 4),
-        generateRoom("R2", 4),
         generateRoom("L1", 4),
+        generateRoom("L2", 4),
         generateRoom("H", 6),
       ],
     };

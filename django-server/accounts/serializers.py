@@ -1,3 +1,4 @@
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from .models import CustomUser, Student, Warden, Attendance
 
@@ -26,7 +27,7 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ["id", "user", "prn", "branch",
-                  "dob", "year", "mobile", "created_at"]
+                  "dob", "year", "mobile", "created_at", "mongoID"]
 
     def create(self, validated_data):
         user_data = validated_data.pop("user")
@@ -71,3 +72,40 @@ class AttendanceCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
         fields = ["student", "date", "present"]
+
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # Add custom claims (optional)
+        token['username'] = user.username
+        token['email'] = user.email
+
+        return token
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        # Add extra response data
+        if self.user.is_student:
+            data['user'] = {
+                "mongoID": self.user.student.mongoID,
+                "username": self.user.username,
+                "email": self.user.email
+            }
+        elif self.user.is_warden:
+            data['user'] = {
+                "username": self.user.username,
+                "email": self.user.email,
+                "role": "warden"
+            }
+        else:
+            data['user'] = {
+                "username": self.user.username,
+                "email": self.user.email,
+                "role": "other"
+            }
+
+        return data
