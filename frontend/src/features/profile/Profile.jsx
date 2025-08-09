@@ -4,29 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LogOut, User } from "lucide-react";
 import SelectSlot from "./SelectSlot";
+import { useAuth } from "@/context/AuthContext";
 
 function Profile() {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    } else {
-      navigate("/auth/login"); // redirect if not logged in
-    }
-  }, [navigate]);
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("user");
-  //   navigate("/auth/login");
-  // };
-
-  if (!user) {
-    return null; // avoids flicker before redirect
-  }
+  const {user} = useAuth(null);
 
   return (
     <div className="flex flex-col md:flex-row justify-center items-center min-h-screen bg-gray-100 px-4 gap-5">
@@ -46,18 +27,24 @@ function Profile() {
             <span className="font-medium">{user.role || "User"}</span>
           </div>
           <div className="flex justify-between text-sm text-gray-600 border-b pb-2">
-            <span>Joined</span>
-            <span className="font-medium">{user.joined || "N/A"}</span>
+            <span>Name</span>
+            <span className="font-medium">{user.first_name } {user.last_name}</span>
           </div>
 
-          <Button
-            // onClick={handleLogout}
-            variant="outline"
-            className="w-full flex items-center gap-2 border-red-500 text-red-500 hover:bg-red-600 hover:text-white"
-            disabled={true}
-          >
-            <LogOut className="w-4 h-4" /> Logout
-          </Button>
+          <div className="flex justify-between text-sm text-gray-600 border-b pb-2">
+            <span>Branch </span>
+            <span className="font-medium">{user.branch || "N/A"}</span>
+          </div>
+
+          <div className="flex justify-between text-sm text-gray-600 border-b pb-2">
+            <span>Current Year </span>
+            <span className="font-medium">{user.year || "N/A"}</span>
+          </div>
+
+          <div className="flex justify-between text-sm text-gray-600 border-b pb-2">
+            <span>Joined</span>
+            <span className="font-medium">{user.created_at || "N/A"}</span>
+          </div>
         </CardContent>
       </Card>
       <SelectSlot/>
