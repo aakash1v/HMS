@@ -9,7 +9,7 @@ function AppLayout() {
     <div className="min-h-screen md:grid md:grid-cols-15">
       {/* Sidebar for large screens */}
       {showSidebar && (
-        <aside className="hidden md:flex col-span-3">
+        <aside className="md:flex col-span-3">
           <Sidebar />
         </aside>
       )}

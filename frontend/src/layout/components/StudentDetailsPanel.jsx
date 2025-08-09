@@ -26,7 +26,7 @@ export default function StudentDetailsPanel({ student }) {
         <strong>Email:</strong> {student.email || "N/A"}
       </p>
       <p>
-        <strong>Phone:</strong> {student.phone || "N/A"}
+        <strong>Phone:</strong> {student.mobile || "N/A"}
       </p>
       {/* Add more fields as needed */}
     </div>

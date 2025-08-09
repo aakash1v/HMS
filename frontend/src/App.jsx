@@ -15,6 +15,8 @@ import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 import NotFound from "./layout/components/NotFound";
 import Profile from "./features/profile/Profile";
+import ProtectedRoute from "./layout/components/ProtectedRoute";
+import HostelDetails from "./features/hostel/HostelDetails";
 
 const queryClient = new QueryClient();
 
@@ -24,12 +26,19 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { index: true, element: <Navigate replace to="/dashboard" /> },
-      { path: "dashboard", element: <Dashboard /> },
-      { path: "hostel", element: <Hostel/> },
-      { path: "profile", element: <Profile/> },
+      // Protected routes here
+      {
+        element: <ProtectedRoute />,
+        children: [
+          { path: "dashboard", element: <Dashboard /> },
+          { path: "hostel", element: <Hostel /> },
+          { path: "hostel/:hostelId", element: <HostelDetails/> },
+          { path: "profile", element: <Profile /> },
+        ],
+      },
       {
         path: "auth",
-        element: <AuthLayout/>,
+        element: <AuthLayout />,
         children: [
           { path: "login", element: <Login /> },
           { path: "register", element: <Register /> },
