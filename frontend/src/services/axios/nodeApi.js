@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const nodeApi = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://node.project1.space/api/",
   withCredentials: true,
 });
 

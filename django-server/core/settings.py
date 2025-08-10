@@ -17,7 +17,7 @@ SECRET_KEY = 'django-insecure-mytlo!-o7l!(vh86*1yk0wb%=%vsbn9!)#v5g(4#$c)fbr*3o@
 DEBUG = True
 
 # ALLOWED_HOSTS = ['https://hms-production-76c7.up.railway.app/']
-ALLOWED_HOSTS = ['localhost', 'https://restfox.dev']
+ALLOWED_HOSTS = ['localhost', 'https://restfox.dev', 'hms.project1.space',"api.project1.space"]
 # Optional: Allow all methods
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -44,6 +44,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # frontend dev
     "http://localhost:3000",  # optional
     "https://restfox.dev",    # 🧠 ADD THIS
+    "https://api.project1.space",
+    "https://hms.project1.space"
 ]
 
 CORS_ALLOW_CREDENTIALS = True

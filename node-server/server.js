@@ -8,7 +8,7 @@ const apiRoutes = require("./routes/api");
 const app = express();
 
 
-const allowedOrigins = ["http://localhost:5173", "https://restfox.dev"];
+const allowedOrigins = ["http://localhost:5173", "https://restfox.dev" ,"https://hms.project1.space"];
 
 app.use(
   cors({

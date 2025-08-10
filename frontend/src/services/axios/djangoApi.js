@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const djangoApi = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://api.project1.space/api/",
   withCredentials: true, // only if you're using cookies
 });
 

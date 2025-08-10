@@ -32,34 +32,6 @@ services:
       POSTGRES_PASSWORD: okay
       POSTGRES_HOST: postgres
 
-  node-server:
-    build: ./node-server
-    container_name: node_backend
-    restart: always
-    ports:
-      - "5000:5000"
-    depends_on:
-      - postgres
-    volumes:
-      - ./node-server:/app
-    environment:
-      MONGO_URI: mongodb://host.docker.internal:27017/hmsdb  # if you're using MongoDB
-
-  frontend:
-    build: ./frontend
-    container_name: frontend_app
-    restart: always
-    ports:
-      - "5173:5173"  # or 3000 depending on your frontend dev server
-    depends_on:
-      - django-server
-      - node-server
-    volumes:
-      - ./frontend:/app
-    command: npm run dev  # change if needed
-    environment:
-      VITE_API_BASE_URL: http://localhost:5000
-      VITE_DJANGO_URL: http://localhost:8000
-
 volumes:
   postgres_data:
+
