@@ -17,11 +17,11 @@ export default function HostelList() {
         <div
           key={hostel.id}
           onClick={() => navigate(`/hostel/${hostel.id}`)}
-          className="cursor-pointer p-6 rounded-xl border border-gray-200 bg-white shadow-sm 
-                     hover:shadow-lg hover:scale-[1.02] transition-all duration-200"
+          className="cursor-pointer p-6 rounded-xl border border-gray-200 shadow-sm 
+                     hover:shadow-lg hover:scale-[1.02] transition-all duration-200 bg-blue-950"
         >
-          <h2 className="text-xl font-bold text-gray-800">{hostel.name}</h2>
-          <p className="text-sm text-gray-500 mt-2">
+          <h2 className="text-xl font-bold text-blue-200">{hostel.name}</h2>
+          <p className="text-sm text-blue-50 mt-2">
             Click to view rooms and details
           </p>
         </div>

@@ -23,6 +23,21 @@ exports.getStudentById = async (req, res) => {
   }
 };
 
+// Get student by prn
+exports.getStudentByPrn= async (req, res) => {
+  try {
+    const student = await Student.findOne({prn: req.params.prn});
+    if (!student) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+    res.json(student);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch student' });
+  }
+};
+
+
+
 // Create a new student
 exports.createStudent = async (req, res) => {
   try {

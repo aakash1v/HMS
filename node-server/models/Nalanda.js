@@ -22,5 +22,5 @@ const flatSchema = new mongoose.Schema({
   rooms: [roomSchema]
 });
 
-module.exports = mongoose.model('Flat', flatSchema);
+module.exports = mongoose.model('Nalanda', flatSchema);
 
