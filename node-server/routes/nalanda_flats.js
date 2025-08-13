@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const flatController = require('../controllers/flatController');
+const flatController = require('../controllers/nalanda_flatController');
 
 // GET all flats
 router.get('/', flatController.getFlats);

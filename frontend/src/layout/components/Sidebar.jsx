@@ -31,6 +31,16 @@ function Sidebar() {
             Hostel
           </Link>
         </li>
+        <li>
+          <Link to="/attendence" className={ListClass}>
+            Attendence
+          </Link>
+        </li>
+        <li>
+          <Link to="/mark-attendence" className={ListClass}>
+            Mark Attendance
+          </Link>
+        </li>
       </ul>
     </div>
   );

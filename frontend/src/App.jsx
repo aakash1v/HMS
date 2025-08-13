@@ -17,6 +17,8 @@ import NotFound from "./layout/components/NotFound";
 import Profile from "./features/profile/Profile";
 import ProtectedRoute from "./layout/components/ProtectedRoute";
 import HostelDetails from "./features/hostel/HostelDetails";
+import Attendence from "./layout/components/Attendence";
+import MarkAttendence from "./features/profile/MarkAttendence";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +36,8 @@ const router = createBrowserRouter([
           { path: "hostel", element: <Hostel /> },
           { path: "hostel/:hostelId", element: <HostelDetails/> },
           { path: "profile", element: <Profile /> },
+          { path: "attendence", element: <Attendence /> },
+          { path: "mark-attendence", element: <MarkAttendence /> },
         ],
       },
       {

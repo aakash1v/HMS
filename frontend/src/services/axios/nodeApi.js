@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const nodeApi = axios.create({
-  baseURL: "https://node.project1.space/api/",
+  baseURL: import.meta.env.VITE_API_URL1,
   withCredentials: true,
 });
 

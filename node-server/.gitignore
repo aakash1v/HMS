@@ -1,3 +1,4 @@
 node_modules/
 .env
-seed.js
+nalanda_seed.js
+
