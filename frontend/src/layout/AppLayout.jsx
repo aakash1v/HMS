@@ -1,16 +1,28 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function AppLayout() {
   const [showSidebar, setShowSidebar] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Function to check if device is mobile
+    const checkMobile = () => setIsMobile(window.innerWidth < 768); // Tailwind "md" breakpoint
+    
+    checkMobile(); // Run on first load
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <div className="min-h-screen md:grid md:grid-cols-15">
       {/* Sidebar for large screens */}
       {showSidebar && (
         <aside className="md:flex col-span-3">
-          <Sidebar />
+          <Sidebar toggleSidebar={setShowSidebar} isMobile={isMobile}/>
         </aside>
       )}
 

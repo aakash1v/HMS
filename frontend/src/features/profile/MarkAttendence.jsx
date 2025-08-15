@@ -15,7 +15,7 @@ function MarkAttendance() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-100 p-12">
       {/* Title */}
       <h1 className="text-2xl font-bold mb-4 text-purple-700">
         Mark Attendance

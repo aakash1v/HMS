@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import djangoApi from "@/services/axios/djangoApi";
+import { fetchAttendance } from "@/services/attendenceApi";
 
 function Attendance() {
   const navigate = useNavigate();
@@ -10,11 +11,11 @@ function Attendance() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchAttendance = async () => {
+    const getAttendance = async () => {
       try {
-        const res = await djangoApi.get("/attendance/");
-        setAttendanceData(res.data);
-        console.log(res.data)
+        const data = await fetchAttendance();
+        setAttendanceData(data);
+        console.log(data);
       } catch (err) {
         console.error("Error fetching attendance:", err);
         setError("Failed to load attendance data.");
@@ -23,7 +24,7 @@ function Attendance() {
       }
     };
 
-    fetchAttendance();
+    getAttendance();
   }, []);
 
   if (loading) {
@@ -40,9 +41,7 @@ function Attendance() {
         <h2 className="text-2xl font-semibold text-gray-700">
           Attendance Data Not Available
         </h2>
-        <p className="text-gray-500 mt-2">
-          No attendance records found.
-        </p>
+        <p className="text-gray-500 mt-2">No attendance records found.</p>
         <Button
           onClick={() => navigate(-1)}
           className="my-2 text-white bg-purple-500 hover:bg-purple-700 cursor-pointer"
@@ -63,6 +62,7 @@ function Attendance() {
             <th className="border border-gray-300 p-2">Student</th>
             <th className="border border-gray-300 p-2">Date</th>
             <th className="border border-gray-300 p-2">Present</th>
+            <th className="border border-gray-300 p-2">Details</th>
           </tr>
         </thead>
         <tbody>
@@ -70,11 +70,14 @@ function Attendance() {
             <tr key={item.id}>
               <td className="border border-gray-300 p-2">{item.student.prn}</td>
               <td className="border border-gray-300 p-2">
-                {item.student.prn || item.student}
+                {item.student.first_name} {item.student.last_name}
               </td>
               <td className="border border-gray-300 p-2">{item.date}</td>
               <td className="border border-gray-300 p-2">
                 {item.present ? "✅" : "❌"}
+              </td>
+              <td className="border border-gray-300 p-2">
+                view
               </td>
             </tr>
           ))}
@@ -91,4 +94,3 @@ function Attendance() {
 }
 
 export default Attendance;
-

@@ -38,3 +38,12 @@ export async function deleteStudent(id){
   const res = await axios.delete(`/students/${id}`)
   return res
 }
+
+export async function fetchStudentDetails(id){
+  const res = await axios.get(`/students/${id}`)
+  return res.data
+
+
+} 
+
+

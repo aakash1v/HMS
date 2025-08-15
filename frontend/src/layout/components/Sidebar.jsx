@@ -1,46 +1,53 @@
-import { Link } from "react-router-dom";
-import "./Siderbar.css";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
-const ListClass =
-  "text-xl hover:text-gray-900 font-extralight hover:bg-gray-300 px-5 py-2 rounded-sm mb-3 text-gray-50 bg-gray-800";
+function Sidebar({ toggleSidebar, isMobile }) {
+  const { user } = useAuth();
+  const location = useLocation();
 
-function Sidebar() {
-  const { user} = useAuth();
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Profile", path: "/profile" },
+    { name: "Hostel", path: "/hostel" },
+    { name: "Attendance", path: "/attendence" },
+    { name: "Mark Attendance", path: "/mark-attendence" },
+  ];
+
+  function handleClickOnSidebar() {
+    if (isMobile) {
+      toggleSidebar((is) => !is);
+    }
+  }
   return (
-    <div className="flex flex-col items-center bg-blue-900 w-full">
-      <h2 className="text-center md:text-3xl text-stone-50 mb-3 md:my-10 font-extrabold text-xl">
-        <div className="flex md:flex-col">
-          <span>Welcome, </span>
-          <span>{user?.first_name} </span>
+    <div className="flex flex-col items-center bg-gradient-to-b from-blue-950 to-blue-800 w-full min-h-screen p-4 shadow-lg">
+      {/* Profile Section */}
+      <div className="flex flex-col items-center mb-10">
+        <div className="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center text-blue-900 font-bold text-xl">
+          {user?.first_name?.[0] || "U"}
         </div>
-      </h2>
-      <ul className="flex flex-col items-center justify-start h-full w-full p-1 md:p-8">
-        <li>
-          <Link to="/" className={ListClass}>
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to="/profile" className={ListClass}>
-            Profile
-          </Link>
-        </li>
-        <li>
-          <Link to="/hostel" className={ListClass}>
-            Hostel
-          </Link>
-        </li>
-        <li>
-          <Link to="/attendence" className={ListClass}>
-            Attendence
-          </Link>
-        </li>
-        <li>
-          <Link to="/mark-attendence" className={ListClass}>
-            Mark Attendance
-          </Link>
-        </li>
+        <h2 className="text-white text-lg font-semibold mt-3 text-center">
+          Welcome,{" "}
+          <span className="font-bold">{user?.first_name || "User"}</span>
+        </h2>
+      </div>
+
+      {/* Navigation Links */}
+      <ul className="flex flex-col w-full gap-3" onClick={handleClickOnSidebar}>
+        {navLinks.filter(link => !(user?.role === "admin" && link.name === "Mark Attendance"))
+          .map((link) => (
+          <li key={link.path}>
+            <Link
+              to={link.path}
+              className={`block px-5 py-3 rounded-md text-lg font-medium transition-all duration-200 ${
+                location.pathname === link.path
+                  ? "bg-white text-blue-900 font-bold shadow-md"
+                  : "text-white hover:bg-blue-800 hover:shadow-sm"
+              }`}
+            >
+              {link.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );

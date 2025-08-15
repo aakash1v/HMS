@@ -33,7 +33,7 @@ export default function Login() {
         console.log(userData);
         // if (!res.ok) throw new Error("Failed to fetch user profile");
       } else {
-        userData = { username: token.user.username, email: token.user.email };
+        userData = { username: token.user.username, email: token.user.email, role:"admin" };
       }
 
       // 3️⃣ Store user info in localStorage
