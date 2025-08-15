@@ -53,9 +53,12 @@ class WardenSerializer(serializers.ModelSerializer):
 
 
 class StudentMiniSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source="user.first_name")
+    last_name = serializers.CharField(source="user.last_name")
+
     class Meta:
         model = Student
-        fields = ["prn"]
+        fields = ["prn", "first_name", "last_name"]
 
 
 class AttendanceSerializer(serializers.ModelSerializer):
